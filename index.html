@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كل يوم حديث</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .date-display {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hadith-box {
+            margin: 30px 0;
+            padding: 30px;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hadith-text {
+            font-size: 1.6em;
+            line-height: 2;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+
+        .hadith-explanation {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            color: #555;
+            text-align: justify;
+        }
+
+        .hadith-explanation strong {
+            color: #764ba2;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        .hadith-source {
+            font-size: 1.1em;
+            color: #764ba2;
+            margin-top: 20px;
+            border-top: 2px dashed #667eea;
+            padding-top: 15px;
+            font-style: italic;
+        }
+
+        .prophet-blessing {
+            font-size: 1.3em;
+            color: #764ba2;
+            margin-top: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button:hover {
+            background-color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .counter {
+            color: #999;
+            font-size: 0.95em;
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .footer .dedication {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #764ba2;
+            font-size: 1em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .hadith-text {
+                font-size: 1.3em;
+                line-height: 1.8;
+            }
+
+            .hadith-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>كل يوم حديث</h1>
+        <p class="subtitle">حديث نبوي صحيح وشرحه المبسط يوميًا</p>
+        <p class="date-display" id="date-display"></p>
+
+        <div class="hadith-box">
+            <p class="hadith-text" id="hadith-text">
+                جاري تحميل الحديث...
+            </p>
+            <div class="hadith-explanation" id="hadith-explanation">
+                <strong>الشرح المبسط:</strong>
+                جاري تحميل الشرح...
+            </div>
+            <p class="hadith-source" id="hadith-source">
+                المصدر: ...
+            </p>
+        </div>
+
+        <p class="prophet-blessing">
+            صلي على نبينا الكريم ﷺ
+        </p>
+
+        <div class="navigation">
+            <button onclick="previousHadith()">← الحديث السابق</button>
+            <button onclick="randomHadith()">عشوائي</button>
+            <button onclick="nextHadith()">الحديث التالي →</button>
+        </div>
+
+        <p class="counter">
+            الحديث <span id="current-index">1</span> من <span id="total-count">15</span>
+        </p>
+
+        <div class="footer">
+            <p>تم تطويره بعناية | جميع الأحاديث من مصادر موثوقة</p>
+            <p class="dedication">صَدَقَةٌ جَارِيَةٌ لِلْعَبْدِ لِلَّهِ مُحَمَّدِ بْنِ صُبْحِي</p>
+        </div>
+    </div>
+
+    <script>
+        // بيانات الأحاديث
+        const hadiths = [
+            {
+                text: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها فهجرته إلى ما هاجر إليه.",
+                explanation: "هذا الحديث قاعدة عظيمة، ومعناه أن قبول الأعمال وصحتها وثوابها يتوقف على النية الصادقة الخالصة لله تعالى، وأن كل إنسان سيجازى على قدر نيته.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الأول من الأربعين النووية"
+            },
+            {
+                text: "الإسلام أن تشهد أن لا إله إلا الله وأن محمداً رسول الله، وتقيم الصلاة، وتؤتي الزكاة، وتصوم رمضان، وتحج البيت إن استطعت إليه سبيلاً.",
+                explanation: "هذا الحديث يوضح أركان الإسلام الخمسة التي يقوم عليها الدين، وهي الشهادتان، وإقامة الصلاة، وإيتاء الزكاة، وصوم رمضان، وحج البيت لمن استطاع.",
+                source: "مسلم - جزء من الحديث الثاني من الأربعين النووية"
+            },
+            {
+                text: "بني الإسلام على خمس: شهادة أن لا إله إلا الله وأن محمداً رسول الله، وإقام الصلاة، وإيتاء الزكاة، وصوم رمضان، وحج البيت.",
+                explanation: "تأكيد للحديث السابق، يوضح أن الإسلام كالبنيان، وهذه الخمسة هي الأعمدة الأساسية التي لا يقوم البنيان إلا بها.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الثالث من الأربعين النووية"
+            },
+            {
+                text: "إن خلق أحدكم يجمع في بطن أمه أربعين يوماً نطفة، ثم يكون علقة مثل ذلك، ثم يكون مضغة مثل ذلك، ثم يرسل إليه الملك فينفخ فيه الروح، ويؤمر بأربع كلمات: بكتب رزقه وأجله وعمله وشقي أو سعيد.",
+                explanation: "يصف هذا الحديث مراحل خلق الإنسان في بطن أمه، ويؤكد على أن الرزق والأجل والعمل والسعادة أو الشقاوة مكتوبة ومقدرة بأمر الله وهو في بطن أمه.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الرابع من الأربعين النووية"
+            },
+            {
+                text: "من أحدث في أمرنا هذا ما ليس منه فهو رد.",
+                explanation: "هذا الحديث أصل في رد البدع والمحدثات في الدين، ومعناه أن كل عمل أو اعتقاد يُضاف إلى الدين وليس له أصل فيه فهو مردود على صاحبه وغير مقبول.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الخامس من الأربعين النووية"
+            },
+            {
+                text: "الحلال بيّن والحرام بيّن، وبينهما أمور مشتبهات لا يعلمهن كثير من الناس، فمن اتقى الشبهات فقد استبرأ لدينه وعرضه، ومن وقع في الشبهات وقع في الحرام، كالراعي يرعى حول الحمى يوشك أن يرتع فيه.",
+                explanation: "يرشد الحديث إلى وجوب اجتناب الأمور المشتبهة التي لم يتضح حكمها، وذلك صيانة للدين والعرض، لأن الوقوع فيها قد يؤدي إلى الوقوع في الحرام الصريح.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث السادس من الأربعين النووية"
+            },
+            {
+                text: "الدين النصيحة. قلنا: لمن؟ قال: لله، ولكتابه، ولرسوله، ولأئمة المسلمين وعامتهم.",
+                explanation: "يبين الحديث أن جوهر الدين هو النصيحة، وهي إرادة الخير للمنصوح له، وتشمل النصيحة لله ولكتابه ولرسوله ولأئمة المسلمين وعامتهم.",
+                source: "مسلم - الحديث السابع من الأربعين النووية"
+            },
+            {
+                text: "أمرت أن أقاتل الناس حتى يشهدوا أن لا إله إلا الله وأن محمداً رسول الله، ويقيموا الصلاة، ويؤتوا الزكاة، فإذا فعلوا ذلك عصموا مني دماءهم وأموالهم إلا بحق الإسلام، وحسابهم على الله.",
+                explanation: "يوضح الحديث أن القتال كان لإزالة الموانع أمام الدعوة، وأن من أتى بأركان الإسلام الظاهرة فقد عصم دمه وماله، وأمره وحسابه موكول إلى الله تعالى.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الثامن من الأربعين النووية"
+            },
+            {
+                text: "ما نهيتكم عنه فاجتنبوه، وما أمرتكم به فأتوا منه ما استطعتم، فإنما أهلك الذين من قبلكم كثرة مسائلهم واختلافهم على أنبيائهم.",
+                explanation: "قاعدة عظيمة في التشريع، تأمر بالاجتناب التام للمنهيات، وبفعل المأمورات قدر الاستطاعة، وتحذر من كثرة السؤال والتعمق فيما لم يؤمر به.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث التاسع من الأربعين النووية"
+            },
+            {
+                text: "إن الله طيب لا يقبل إلا طيباً، وإن الله أمر المؤمنين بما أمر به المرسلين، فقال: (يا أيها الرسل كلوا من الطيبات واعملوا صالحاً)، وقال: (يا أيها الذين آمنوا كلوا من طيبات ما رزقناكم).",
+                explanation: "يدل الحديث على أن الله تعالى لا يقبل من الأعمال والأموال إلا ما كان طيباً حلالاً، ويأمر المؤمنين بما أمر به المرسلين من الأكل من الطيبات والعمل الصالح.",
+                source: "مسلم - جزء من الحديث العاشر من الأربعين النووية"
+            },
+            {
+                text: "من حسن إسلام المرء تركه ما لا يعنيه.",
+                explanation: "هذا الحديث من جوامع الكلم، ويدل على أن كمال إيمان المسلم يكون بتركه كل ما لا يهمه ولا ينفعه في دينه أو دنياه، والاشتغال بما هو أولى.",
+                source: "الترمذي - الحديث الثاني عشر من الأربعين النووية"
+            },
+            {
+                text: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه.",
+                explanation: "هذا الحديث أصل في الأخوة الإيمانية، ومعناه أن الإيمان لا يكتمل إلا إذا أحب المسلم لأخيه المسلم من الخير ما يحبه لنفسه.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الثالث عشر من الأربعين النووية"
+            },
+            {
+                text: "لا يحل دم امرئ مسلم إلا بإحدى ثلاث: الثيب الزاني، والنفس بالنفس، والتارك لدينه المفارق للجماعة.",
+                explanation: "يبين الحديث الحالات التي يجوز فيها إقامة حد القتل على المسلم، وهي ثلاث حالات تتعلق بحفظ الدين والنفس والعرض.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الرابع عشر من الأربعين النووية"
+            },
+            {
+                text: "من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت، ومن كان يؤمن بالله واليوم الآخر فليكرم جاره، ومن كان يؤمن بالله واليوم الآخر فليكرم ضيفه.",
+                explanation: "يربط الحديث بين الإيمان بالله واليوم الآخر وبين ثلاثة من أهم الآداب الإسلامية: حفظ اللسان، إكرام الجار، وإكرام الضيف.",
+                source: "متفق عليه (البخاري ومسلم) - الحديث الخامس عشر من الأربعين النووية"
+            },
+            {
+                text: "لا تغضب.",
+                explanation: "هذه وصية جامعة، ومعناها ليس النهي عن الغضب كشعور طبيعي، بل النهي عن الاستسلام للغضب والعمل بمقتضاه من قول أو فعل سيئ، والتحكم في النفس عند ثورانه.",
+                source: "البخاري - الحديث السادس عشر من الأربعين النووية"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        // دالة لتحديث عرض التاريخ
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('ar-SA', options);
+            document.getElementById('date-display').textContent = today;
+        }
+
+        // دالة لعرض الحديث
+        function displayHadith(index) {
+            if (index < 0) {
+                currentIndex = hadiths.length - 1;
+            } else if (index >= hadiths.length) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+
+            const hadith = hadiths[currentIndex];
+            document.getElementById('hadith-text').textContent = hadith.text;
+            document.getElementById('hadith-explanation').innerHTML = `<strong>الشرح المبسط:</strong> ${hadith.explanation}`;
+            document.getElementById('hadith-source').textContent = hadith.source;
+            document.getElementById('current-index').textContent = currentIndex + 1;
+            document.getElementById('total-count').textContent = hadiths.length;
+        }
+
+        // دالة للحديث التالي
+        function nextHadith() {
+            displayHadith(currentIndex + 1);
+        }
+
+        // دالة للحديث السابق
+        function previousHadith() {
+            displayHadith(currentIndex - 1);
+        }
+
+        // دالة لحديث عشوائي
+        function randomHadith() {
+            const randomIndex = Math.floor(Math.random() * hadiths.length);
+            displayHadith(randomIndex);
+        }
+
+        // دالة لعرض حديث اليوم
+        function getTodayHadith() {
+            const today = new Date();
+            // حساب عدد الأيام المنقضية من بداية السنة
+            const startOfYear = new Date(today.getFullYear(), 0, 1);
+            const diff = today - startOfYear;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            // استخدام باقي القسمة لتحديد الحديث اليومي
+            const index = dayOfYear % hadiths.length;
+            displayHadith(index);
+        }
+
+        // تهيئة الصفحة عند التحميل
+        window.addEventListener('load', function() {
+            updateDate();
+            getTodayHadith();
+        });
+    </script>
+</body>
+</html>
