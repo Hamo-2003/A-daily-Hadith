@@ -1,172 +1,387 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أداة حساب وحدات السماد</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-  body { font-family: 'Cairo', sans-serif; background: #f7f7f7; margin: 20px; }
-  .glowing-name {
-    color: #fff;
-    text-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600, 0 0 15px #ff6600;
-    animation: glow 1.5s ease-in-out infinite alternate;
-    font-family: 'Tajawal', 'Cairo', sans-serif;
-    font-weight: 900;
-    font-size: 1.4em;
-    letter-spacing: 1px;
-  }
-  @keyframes glow {
-    from { text-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600, 0 0 15px #ff6600; }
-    to { text-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600, 0 0 30px #ff6600; }
-  }
-  .islamic-box {
-    border: 2px solid #d4a574;
-    border-radius: 12px;
-    padding: 20px;
-    background: #fffbf0;
-    text-align: center;
-    margin: 15px 0;
-    font-size: 1.5em;
-    color: #333;
-    font-weight: 900;
-    font-family: 'Amiri', 'Cairo', serif;
-    letter-spacing: 0.5px;
-    line-height: 1.8;
-  }
-  header, footer { text-align: center; padding: 10px; font-weight: bold; color: #ff6600; }
-  .lang-switch { position: absolute; top: 10px; left: 10px; }
-  .container { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 0 10px #ccc; }
-  button { padding: 10px 15px; margin: 5px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
-  .export { background: #007bff; color: white; }
-  .print { background: #28a745; color: white; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كل يوم حديث</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .date-display {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hadith-box {
+            margin: 30px 0;
+            padding: 30px;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hadith-text {
+            font-size: 1.6em;
+            line-height: 2;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+
+        .hadith-explanation {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            color: #555;
+            text-align: justify;
+        }
+
+        .hadith-explanation strong {
+            color: #764ba2;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        .hadith-source {
+            font-size: 1.1em;
+            color: #764ba2;
+            margin-top: 20px;
+            border-top: 2px dashed #667eea;
+            padding-top: 15px;
+            font-style: italic;
+        }
+
+        .prophet-blessing {
+            font-size: 1.3em;
+            color: #764ba2;
+            margin-top: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button:hover {
+            background-color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .counter {
+            color: #999;
+            font-size: 0.95em;
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .footer .dedication {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #764ba2;
+            font-size: 1em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .hadith-text {
+                font-size: 1.3em;
+                line-height: 1.8;
+            }
+
+            .hadith-box {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
-<body><div class="lang-switch">
-  <select id="language" onchange="switchLanguage()">
-    <option value="ar">العربية</option>
-    <option value="en">English</option>
-  </select>
-</div><header>⚡ تصميم <span class="glowing-name">م. محمد صبحي</span> ⚡</header><div class="islamic-box">صَلِّ عَلَى نَبِيِّنَا الكَرِيمِ ﷺ</div><div class="container">
-  <h2 id="title">حاسبة وحدات العناصر من الأسمدة</h2><label id="fertLabel">اختر السماد:</label> <select id="fertilizer"></select>
+<body>
+    <div class="container">
+        <h1>كل يوم حديث</h1>
+        <p class="subtitle">حديث نبوي صحيح وشرحه المبسط يوميًا</p>
+        <p class="date-display" id="date-display"></p>
 
-<br><br> <label id="unitLabel">أدخل عدد الوحدات المطلوبة:</label> <input type="number" id="units" />
+        <div class="hadith-box">
+            <p class="hadith-text" id="hadith-text">
+                جاري تحميل الحديث...
+            </p>
+            <div class="hadith-explanation" id="hadith-explanation">
+                <strong>الشرح المبسط:</strong>
+                جاري تحميل الشرح...
+            </div>
+            <p class="hadith-source" id="hadith-source">
+                المصدر: ...
+            </p>
+        </div>
 
-<button id="calculateBtn" onclick="calculate()">حساب</button>
+        <p class="prophet-blessing">
+            صلي على نبينا الكريم ﷺ
+        </p>
 
-  <h3 id="result"></h3><button id="exportCSVBtn" class="export" onclick="downloadCSV()">تصدير CSV</button> <button id="exportExcelBtn" class="export" onclick="downloadExcel()">تصدير Excel</button> <button id="printBtn" class="print" onclick="window.print()">طباعة</button>
+        <div class="navigation">
+            <button onclick="previousHadith()">← الحديث السابق</button>
+            <button onclick="randomHadith()">عشوائي</button>
+            <button onclick="nextHadith()">الحديث التالي →</button>
+        </div>
 
-</div><footer>⚡ Created by <span class="glowing-name">ENG. Mohamed Sobhy</span> ⚡</footer><script>
-const FERTILIZERS_DATA = [
-  { en: "Urea 46% N", ar: "يوريا 46% ن", ratios: { N: 46 } },
-  { en: "Ammonium Nitrate 33.5% N", ar: "نترات الأمونيوم 33.5% ن", ratios: { N: 33.5 } },
-  { en: "Ammonium Sulfate 20.5% N", ar: "كبريتات الأمونيوم 20.5% ن", ratios: { N: 20.5 } },
-  { en: "Calcium Nitrate 15.5% N", ar: "نترات الكالسيوم 15.5% ن", ratios: { N: 15.5 } },
-  { en: "Nitric Acid 60% N", ar: "حمض النيتريك 60% ن", ratios: { N: 60 } },
-  { en: "MAP 12-61-0", ar: "فوسفات أحادي الأمونيوم 12-61-0", ratios: { N: 12, P: 61 } },
-  { en: "DAP 18-46-0", ar: "فوسفات ثنائي الأمونيوم 18-46-0", ratios: { N: 18, P: 46 } },
-  { en: "MKP 0-52-34", ar: "فوسفات أحادي البوتاسيوم 0-52-34", ratios: { P: 52, K: 34 } },
-  { en: "NPK 20-20-20", ar: "NPK 20-20-20", ratios: { N: 20, P: 20, K: 20 } },
-  { en: "Urea Phosphate 17-44-0", ar: "يوريا فوسفات 17-44-0", ratios: { N: 17, P: 44 } },
-  { en: "Mono-Ammonium Phosphate 12-51.5-0", ar: "فوسفات أحادي الأمونيوم 12-51.5-0", ratios: { N: 12, P: 51.5 } },
-  { en: "Di-Ammonium Phosphate 19.5-55-0", ar: "فوسفات ثنائي الأمونيوم 19.5-55-0", ratios: { N: 19.5, P: 55 } },
-  { en: "Single Super Phosphate 0-15.5-0", ar: "سوبر فوسفات أحادي 0-15.5-0", ratios: { P: 15.5 } },
-  { en: "Triple Super Phosphate 0-46-0", ar: "سوبر فوسفات ثلاثي 0-46-0", ratios: { P: 46 } },
-  { en: "Phosphoric Acid 85% P", ar: "حمض الفوسفوريك 85% ف", ratios: { P: 85 } },
-  { en: "Potassium Sulfate 0-0-48", ar: "كبريتات البوتاسيوم 0-0-48", ratios: { K: 48 } },
-  { en: "Potassium Chloride 0-0-61", ar: "كلوريد البوتاسيوم 0-0-61", ratios: { K: 61 } },
-  { en: "Potassium Nitrate 13-0-44", ar: "نترات البوتاسيوم 13-0-44", ratios: { N: 13, K: 44 } }
-];
+        <p class="counter">
+            الحديث <span id="current-index">1</span> من <span id="total-count">15</span>
+        </p>
 
-function loadFertilizers() {
-  const select = document.getElementById("fertilizer");
-  select.innerHTML = ''; // Clear existing options
-  const lang = document.getElementById("language").value;
+        <div class="footer">
+            <p>تم تطويره بعناية | جميع الأحاديث من صحيح البخاري ومسلم</p>
+            <p class="dedication">صَدَقَةٌ جَارِيَةٌ لِلْعَبْدِ لِلَّهِ مُحَمَّدِ بْنِ صُبْحِي</p>
+        </div>
+    </div>
 
-  FERTILIZERS_DATA.forEach((fert) => {
-    const option = document.createElement("option");
-    option.value = fert.en; // Use English name as value for consistent lookup
-    option.textContent = lang === 'ar' ? fert.ar : fert.en;
-    select.appendChild(option);
-  });
-}
+    <script>
+        // بيانات الأحاديث الجديدة من صحيح البخاري ومسلم
+        const hadiths = [
+            {
+                text: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه.",
+                explanation: "الإيمان لا يكتمل إلا إذا كان المسلم حريصًا على الخير لأخيه المسلم، ويتمنى له ما يتمناه لنفسه من خير الدنيا والآخرة.",
+                source: "متفق عليه (البخاري: 13، مسلم: 45)"
+            },
+            {
+                text: "من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت، ومن كان يؤمن بالله واليوم الآخر فليكرم جاره، ومن كان يؤمن بالله واليوم الآخر فليكرم ضيفه.",
+                explanation: "يربط هذا الحديث بين الإيمان الصادق وثلاثة من أهم الآداب الإسلامية: حفظ اللسان، وحسن معاملة الجار، وإكرام الضيف.",
+                source: "متفق عليه (البخاري: 6018، مسلم: 48)"
+            },
+            {
+                text: "المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه.",
+                explanation: "المسلم الحقيقي هو الذي لا يؤذي غيره لا بقول (لسانه) ولا بفعل (يده)، والمهاجر الكامل هو الذي يترك المعاصي والمنهيات.",
+                source: "متفق عليه (البخاري: 10، مسلم: 40)"
+            },
+            {
+                text: "لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر.",
+                explanation: "يحذر الحديث من الكبر، وهو رد الحق واحتقار الناس، ويبين أن هذا الخلق السيئ يمنع صاحبه من دخول الجنة.",
+                source: "مسلم: 91"
+            },
+            {
+                text: "إذا سألتم الله فاسألوه الفردوس، فإنه أوسط الجنة وأعلى الجنة، وفوقه عرش الرحمن، ومنه تفجر أنهار الجنة.",
+                explanation: "يرشدنا الحديث إلى أن نطلب من الله أعلى درجات الجنة وهي الفردوس، لأن الله كريم يحب أن يُسأل العظيم.",
+                source: "البخاري: 2790"
+            },
+            {
+                text: "ما يصيب المسلم من نصب ولا وصب ولا هم ولا حزن ولا أذى ولا غم، حتى الشوكة يشاكها، إلا كفر الله بها من خطاياه.",
+                explanation: "يبشر الحديث بأن كل ما يصيب المسلم من تعب أو مرض أو حزن أو أذى، حتى وخزة الشوكة، فإن الله يجعله سببًا لمحو ذنوبه وخطاياه.",
+                source: "متفق عليه (البخاري: 5641، مسلم: 2573)"
+            },
+            {
+                text: "خيركم من تعلم القرآن وعلمه.",
+                explanation: "يوضح الحديث فضل تعلم القرآن الكريم وتعليمه للناس، وأن هذا العمل من أفضل الأعمال التي تقرب إلى الله.",
+                source: "البخاري: 5027"
+            },
+            {
+                text: "كلمتان خفيفتان على اللسان، ثقيلتان في الميزان، حبيبتان إلى الرحمن: سبحان الله وبحمده، سبحان الله العظيم.",
+                explanation: "يرشد الحديث إلى فضل هاتين الكلمتين العظيمتين، وهما سهلتان في النطق لكن أجرهما عظيم عند الله تعالى.",
+                source: "متفق عليه (البخاري: 6404، مسلم: 2694)"
+            },
+            {
+                text: "لا تحاسدوا، ولا تناجشوا، ولا تباغضوا، ولا تدابروا، ولا يبع بعضكم على بيع بعض، وكونوا عباد الله إخواناً.",
+                explanation: "ينهى الحديث عن مجموعة من الأخلاق السيئة التي تفرق بين المسلمين، ويأمرهم بأن يكونوا إخوة متحابين.",
+                source: "مسلم: 2564"
+            },
+            {
+                text: "من غدا إلى المسجد أو راح، أعد الله له في الجنة نزلاً كلما غدا أو راح.",
+                explanation: "يبين الحديث فضل الذهاب إلى المسجد للصلاة، وأن الله يكافئ من يفعل ذلك بضيافة في الجنة كلما ذهب وعاد.",
+                source: "متفق عليه (البخاري: 662، مسلم: 669)"
+            },
+            {
+                text: "من سلك طريقاً يلتمس فيه علماً، سهل الله له به طريقاً إلى الجنة.",
+                explanation: "يشجع الحديث على طلب العلم الشرعي، ويبين أن هذا الطريق هو سبب لتسهيل دخول الجنة.",
+                source: "مسلم: 2699"
+            },
+            {
+                text: "إذا مات الإنسان انقطع عمله إلا من ثلاث: صدقة جارية، أو علم ينتفع به، أو ولد صالح يدعو له.",
+                explanation: "يوضح الحديث أن عمل الإنسان ينقطع بموته إلا من ثلاثة أعمال يستمر ثوابها بعد الوفاة، وهي الصدقة الجارية، والعلم النافع، والولد الصالح الذي يدعو لوالديه.",
+                source: "مسلم: 1631"
+            },
+            {
+                text: "إن الله لا ينظر إلى صوركم وأموالكم، ولكن ينظر إلى قلوبكم وأعمالكم.",
+                explanation: "يبين الحديث أن معيار التفاضل عند الله ليس بالمظاهر الخارجية كالشكل أو الثروة، بل بما في القلوب من إيمان وإخلاص، وما يظهر على الجوارح من أعمال صالحة.",
+                source: "مسلم: 2564"
+            },
+            {
+                text: "إن الصدق يهدي إلى البر، وإن البر يهدي إلى الجنة، وإن الرجل ليصدق حتى يكتب عند الله صديقاً.",
+                explanation: "يرشد الحديث إلى أهمية الصدق، فهو أساس كل خير، ويقود إلى البر (الخير الشامل)، والبر يقود إلى الجنة، ومن لازم الصدق صار صديقًا عند الله.",
+                source: "متفق عليه (البخاري: 6094، مسلم: 2607)"
+            },
+            {
+                text: "من أحب أن يبسط له في رزقه، وينسأ له في أثره، فليصل رحمه.",
+                explanation: "يشجع الحديث على صلة الرحم، ويبين أن من ثمراتها زيادة الرزق وطول العمر (البركة في العمر والعمل).",
+                source: "متفق عليه (البخاري: 5986، مسلم: 2557)"
+            }
+        ];
 
-function getFertilizerRatios(name) {
-  const fert = FERTILIZERS_DATA.find(f => f.en === name);
-  return fert ? fert.ratios : null;
-}
+        let currentIndex = 0;
 
-function calculate() {
-  const fertNameEn = document.getElementById("fertilizer").value;
-  const units = document.getElementById("units").value;
-  const lang = document.getElementById("language").value;
+        // دالة لتحديث عرض التاريخ
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('ar-SA', options);
+            document.getElementById('date-display').textContent = today;
+        }
 
-  const ratios = getFertilizerRatios(fertNameEn);
-  if (!ratios) {
-    document.getElementById("result").textContent = lang === 'ar' ? "خطأ: لم يتم العثور على بيانات السماد." : "Error: Fertilizer data not found.";
-    return;
-  }
+        // دالة لعرض الحديث
+        function displayHadith(index) {
+            if (index < 0) {
+                currentIndex = hadiths.length - 1;
+            } else if (index >= hadiths.length) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
 
-  // Use the first ratio found (N, P, or K) for calculation as per original logic
-  const percent = Object.values(ratios)[0];
-  const kg = (units / (percent / 100)).toFixed(2);
+            const hadith = hadiths[currentIndex];
+            document.getElementById('hadith-text').textContent = hadith.text;
+            document.getElementById('hadith-explanation').innerHTML = `<strong>الشرح المبسط:</strong> ${hadith.explanation}`;
+            document.getElementById('hadith-source').textContent = hadith.source;
+            document.getElementById('current-index').textContent = currentIndex + 1;
+            document.getElementById('total-count').textContent = hadiths.length;
+        }
 
-  const fertNameDisplay = FERTILIZERS_DATA.find(f => f.en === fertNameEn)[lang];
+        // دالة للحديث التالي
+        function nextHadith() {
+            displayHadith(currentIndex + 1);
+        }
 
-  let resultText;
-  if (lang === "en") {
-    resultText = `You need ${kg} kg of ${fertNameDisplay} fertilizer`;
-  } else {
-    resultText = `تحتاج إلى ${kg} كجم من سماد ${fertNameDisplay}`;
-  }
-  document.getElementById("result").textContent = resultText;
-}
+        // دالة للحديث السابق
+        function previousHadith() {
+            displayHadith(currentIndex - 1);
+        }
 
-function downloadCSV() {
-  let data = document.getElementById("result").textContent;
-  let blob = new Blob([data], { type: 'text/csv' });
-  let url = URL.createObjectURL(blob);
-  let a = document.createElement('a');
-  a.href = url;
-  a.download = 'fertilizer_result.csv';
-  a.click();
-}
+        // دالة لحديث عشوائي
+        function randomHadith() {
+            const randomIndex = Math.floor(Math.random() * hadiths.length);
+            displayHadith(randomIndex);
+        }
 
-function downloadExcel() {
-  let data = document.getElementById("result").textContent;
-  let blob = new Blob([data], { type: 'application/vnd.ms-excel' });
-  let url = URL.createObjectURL(blob);
-  let a = document.createElement('a');
-  a.href = url;
-  a.download = 'fertilizer_result.xls';
-  a.click();
-}
+        // دالة لعرض حديث اليوم
+        function getTodayHadith() {
+            const today = new Date();
+            // حساب عدد الأيام المنقضية من بداية السنة
+            const startOfYear = new Date(today.getFullYear(), 0, 1);
+            const diff = today - startOfYear;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            // استخدام باقي القسمة لتحديد الحديث اليومي
+            const index = dayOfYear % hadiths.length;
+            displayHadith(index);
+        }
 
-function switchLanguage() {
-  const lang = document.getElementById("language").value;
-
-  if (lang === "en") {
-    document.body.dir = "ltr";
-    document.getElementById("title").textContent = "Fertilizer Nutrient Unit Calculator";
-    document.getElementById("fertLabel").textContent = "Select fertilizer:";
-    document.getElementById("unitLabel").textContent = "Enter required units:";
-    document.getElementById("calculateBtn").textContent = "Calculate";
-    document.getElementById("exportCSVBtn").textContent = "Export CSV";
-    document.getElementById("exportExcelBtn").textContent = "Export Excel";
-    document.getElementById("printBtn").textContent = "Print";
-  } else {
-    document.body.dir = "rtl";
-    document.getElementById("title").textContent = "حاسبة وحدات العناصر من الأسمدة";
-    document.getElementById("fertLabel").textContent = "اختر السماد:";
-    document.getElementById("unitLabel").textContent = "أدخل عدد الوحدات المطلوبة:";
-    document.getElementById("calculateBtn").textContent = "حساب";
-    document.getElementById("exportCSVBtn").textContent = "تصدير CSV";
-    document.getElementById("exportExcelBtn").textContent = "تصدير Excel";
-    document.getElementById("printBtn").textContent = "طباعة";
-  }
-  loadFertilizers(); // Reload fertilizer list with correct language
-}
-
-loadFertilizers();
-switchLanguage(); // Apply initial language settings
-</script></body>
+        // تهيئة الصفحة عند التحميل
+        window.addEventListener('load', function() {
+            updateDate();
+            getTodayHadith();
+        });
+    </script>
+</body>
 </html>
